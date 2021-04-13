@@ -1,20 +1,10 @@
 param (
-  [hashtable] $DeploymentOutputs,
-  [string] $TenantId,
-  [string] $TestApplicationId,
-  [string] $TestApplicationSecret
+  [string]$ResourceGroupName
 )
 
-#Testing
-Get-Module -ListAvailable
+$ErrorActionPreference = "Continue"
 
-Get-Command -Module "Az.ContainerRegistry"
-
-Import-AzContainerRegistryImage `
-  -ResourceGroupName $DeploymentOutputs['CONTAINERREGISTRY_RESOURCE_GROUP'] `
-  -RegistryName $DeploymentOutputs['CONTAINERREGISTRY_USERNAME'] `
-  -SourceImage 'library/hello-world' -SourceRegistryUri 'registry.hub.docker.com' `
-  -Mode 'Force'
+Import-AzContainerRegistryImage
 
 Write-Host "Exiting"
 exit 1
