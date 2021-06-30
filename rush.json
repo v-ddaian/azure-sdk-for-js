@@ -784,6 +784,11 @@
       "packageName": "@azure-tests/perf-core-rest-pipeline",
       "projectFolder": "sdk/core/perf-tests/core-rest-pipeline",
       "versionPolicyName": "test"
+    },
+    {
+      "packageName": "@azure/maps-creator",
+      "projectFolder": "sdk/maps/maps-creator",
+      "versionPolicyName": "client"
     }
   ]
 }
