@@ -102,7 +102,7 @@ export type BooleanTypeStyleRule = StyleObject & {
 // @public
 export interface BufferRequestBody {
     distances?: number[];
-    geometries?: GeoJsonFeatureCollectionUnion;
+    geometries?: Record<string, unknown>;
 }
 
 // @public
@@ -582,7 +582,7 @@ export type FeatureStateListStatesetResponse = StatesetListResponse;
 export interface FeatureStateObject {
     eventTimestamp?: string;
     keyName?: string;
-    value?: Record<string, unknown>;
+    value?: string;
 }
 
 // @public
@@ -901,9 +901,9 @@ export interface Spatial {
     getGreatCircleDistance(format: ResponseFormat, query: string, options?: SpatialGetGreatCircleDistanceOptionalParams): Promise<SpatialGetGreatCircleDistanceResponse>;
     getPointInPolygon(format: ResponseFormat, udid: string, latitude: number, longitude: number, options?: SpatialGetPointInPolygonOptionalParams): Promise<SpatialGetPointInPolygonResponse>;
     postBuffer(format: ResponseFormat, bufferRequestBody: BufferRequestBody, options?: SpatialPostBufferOptionalParams): Promise<SpatialPostBufferResponse>;
-    postClosestPoint(format: ResponseFormat, latitude: number, longitude: number, closestPointRequestBody: GeoJsonFeatureCollectionUnion, options?: SpatialPostClosestPointOptionalParams): Promise<SpatialPostClosestPointResponse>;
-    postGeofence(format: ResponseFormat, deviceId: string, latitude: number, longitude: number, searchGeofenceRequestBody: GeoJsonFeatureCollectionUnion, options?: SpatialPostGeofenceOptionalParams): Promise<SpatialPostGeofenceResponse>;
-    postPointInPolygon(format: ResponseFormat, latitude: number, longitude: number, pointInPolygonRequestBody: GeoJsonFeatureCollectionUnion, options?: SpatialPostPointInPolygonOptionalParams): Promise<SpatialPostPointInPolygonResponse>;
+    postClosestPoint(format: ResponseFormat, latitude: number, longitude: number, closestPointRequestBody: Record<string, unknown>, options?: SpatialPostClosestPointOptionalParams): Promise<SpatialPostClosestPointResponse>;
+    postGeofence(format: ResponseFormat, deviceId: string, latitude: number, longitude: number, searchGeofenceRequestBody: Record<string, unknown>, options?: SpatialPostGeofenceOptionalParams): Promise<SpatialPostGeofenceResponse>;
+    postPointInPolygon(format: ResponseFormat, latitude: number, longitude: number, pointInPolygonRequestBody: Record<string, unknown>, options?: SpatialPostPointInPolygonOptionalParams): Promise<SpatialPostPointInPolygonResponse>;
 }
 
 // @public

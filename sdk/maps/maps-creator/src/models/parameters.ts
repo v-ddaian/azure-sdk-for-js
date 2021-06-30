@@ -14,7 +14,6 @@ import {
 import {
   StylesObject as StylesObjectMapper,
   FeatureStatesStructure as FeatureStatesStructureMapper,
-  GeoJsonFeatureCollection as GeoJsonFeatureCollectionMapper,
   BufferRequestBody as BufferRequestBodyMapper
 } from "../models/mappers";
 
@@ -502,7 +501,14 @@ export const mode: OperationQueryParameter = {
 
 export const searchGeofenceRequestBody: OperationParameter = {
   parameterPath: "searchGeofenceRequestBody",
-  mapper: GeoJsonFeatureCollectionMapper
+  mapper: {
+    serializedName: "searchGeofenceRequestBody",
+    required: true,
+    type: {
+      name: "Dictionary",
+      value: { type: { name: "any" } }
+    }
+  }
 };
 
 export const bufferRequestBody: OperationParameter = {
@@ -523,7 +529,14 @@ export const distances: OperationQueryParameter = {
 
 export const closestPointRequestBody: OperationParameter = {
   parameterPath: "closestPointRequestBody",
-  mapper: GeoJsonFeatureCollectionMapper
+  mapper: {
+    serializedName: "closestPointRequestBody",
+    required: true,
+    type: {
+      name: "Dictionary",
+      value: { type: { name: "any" } }
+    }
+  }
 };
 
 export const numberOfClosestPoints: OperationQueryParameter = {
@@ -538,7 +551,14 @@ export const numberOfClosestPoints: OperationQueryParameter = {
 
 export const pointInPolygonRequestBody: OperationParameter = {
   parameterPath: "pointInPolygonRequestBody",
-  mapper: GeoJsonFeatureCollectionMapper
+  mapper: {
+    serializedName: "pointInPolygonRequestBody",
+    required: true,
+    type: {
+      name: "Dictionary",
+      value: { type: { name: "any" } }
+    }
+  }
 };
 
 export const query: OperationQueryParameter = {

@@ -10,7 +10,6 @@ import {
   ResponseFormat,
   SpatialGetGeofenceOptionalParams,
   SpatialGetGeofenceResponse,
-  GeoJsonFeatureCollectionUnion,
   SpatialPostGeofenceOptionalParams,
   SpatialPostGeofenceResponse,
   BufferRequestBody,
@@ -130,7 +129,7 @@ export interface Spatial {
     deviceId: string,
     latitude: number,
     longitude: number,
-    searchGeofenceRequestBody: GeoJsonFeatureCollectionUnion,
+    searchGeofenceRequestBody: Record<string, unknown>,
     options?: SpatialPostGeofenceOptionalParams
   ): Promise<SpatialPostGeofenceResponse>;
   /**
@@ -218,7 +217,7 @@ export interface Spatial {
     format: ResponseFormat,
     latitude: number,
     longitude: number,
-    closestPointRequestBody: GeoJsonFeatureCollectionUnion,
+    closestPointRequestBody: Record<string, unknown>,
     options?: SpatialPostClosestPointOptionalParams
   ): Promise<SpatialPostClosestPointResponse>;
   /**
@@ -277,7 +276,7 @@ export interface Spatial {
     format: ResponseFormat,
     latitude: number,
     longitude: number,
-    pointInPolygonRequestBody: GeoJsonFeatureCollectionUnion,
+    pointInPolygonRequestBody: Record<string, unknown>,
     options?: SpatialPostPointInPolygonOptionalParams
   ): Promise<SpatialPostPointInPolygonResponse>;
   /**

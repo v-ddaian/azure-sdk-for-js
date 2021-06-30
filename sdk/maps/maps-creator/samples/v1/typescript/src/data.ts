@@ -92,17 +92,17 @@ async function main() {
 
   const data = new CreatorClient(credential).data;
 
-  const filePathForUpload = "resources/data_sample_upload.json";
-  const filePathForZipUpload = "resources/data_sample_upload.zip"
-  const filePathForUpdate = "resources/data_sample_update.json";
+  const filePathForUpload = "../../resources/data_sample_upload.json";
+  const filePathForZipUpload = "../../resources/data_sample_upload.zip"
+  const filePathForUpdate = "../../resources/data_sample_update.json";
 
 
-  // This will upload new resource for Creator returning unique udid that might be used for other
-  // Creator's services: Alias, Conversion, etc. Please put it in the env CREATOR_UPLOADED_DATA_ID.
+  // This will upload new resource for Creator returning unique ID (udid) that might be used for other
+  // Creator's services: Alias, Conversion, etc. Please put it in the env CREATOR_DWG_ZIP_UDID or CREATOR_GEOJSON_UDID.
 
   // Upload GeoJson:
 
-  /*const geoJsonUpload = JSON.parse(fs.readFileSync(filePathForUpload, "utf8"));
+  const geoJsonUpload = JSON.parse(fs.readFileSync(filePathForUpload, "utf8"));
 
   console.log(" --- Begin the upload Data (single JSON file):");
   const uploadResult = await data.beginUploadPreviewAndWait("geojson", "application/json", geoJsonUpload, operationOptions);
@@ -134,9 +134,10 @@ async function main() {
 
   console.log(" --- Delete the created Data item:");
   await data.deletePreview(udid, operationOptions);
-  console.log("Done (no response body)");*/
+  console.log("Done (no response body)");
 
-  // Upload ZIP with DWG files
+
+  // Upload ZIP with DWG files:
 
   console.log(" --- Begin the upload Data (single ZIP file):");
   const uploadZipResult = await data.beginUploadPreviewAndWait("dwgzippackage", "application/octet-stream", fs.readFileSync(filePathForZipUpload), operationOptions);
@@ -156,6 +157,7 @@ async function main() {
   console.log(" --- Delete the created Data item:");
   await data.deletePreview(zipUdid, operationOptions);
   console.log("Done (no response body)");
+
 
   // List all the data
 

@@ -385,7 +385,7 @@ export interface FeatureStateObject {
   /** Feature state Keyname. Maximum length allowed is 1000. */
   keyName?: string;
   /** Value for the feature state. Type should comply with the style definition attached to the featurestate. Maximum length allowed for string type is 1024. */
-  value?: Record<string, unknown>;
+  value?: string;
   /** Valid Timestamp when the feature state was captured. */
   eventTimestamp?: string;
 }
@@ -453,6 +453,39 @@ export interface GeofenceGeometry {
   readonly nearestZ?: number;
 }
 
+/** An object with a FeatureCollection and a list of distances.  All the feature's properties should contain `geometryId`, which is used for identifying the geometry and is case-sensitive. */
+export interface BufferRequestBody {
+  /** A valid `GeoJSON FeatureCollection` object type. Please refer to [RFC 7946](https://tools.ietf.org/html/rfc7946#section-3.3) for details. */
+  geometries?: Record<string, unknown>;
+  /** List of the distances to compute the buffer for, one-to-one per Feature in the collection, or one for all Features in the collection. */
+  distances?: number[];
+}
+
+/** This object is returned from a successful Spatial Buffer call. */
+export interface BufferResponse {
+  /**
+   * Summary of the call.
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly summary?: BufferResponseSummary;
+  /** The FeatureCollection of buffers for the input. */
+  result?: GeoJsonFeatureCollectionUnion;
+}
+
+/** Summary of the call. */
+export interface BufferResponseSummary {
+  /**
+   * The udid for the user data if one exists
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly udid?: string;
+  /**
+   * The information about what happened during the call.
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly information?: string;
+}
+
 /** A valid `GeoJSON` object. Please refer to [RFC 7946](https://tools.ietf.org/html/rfc7946#section-3) for details. */
 export interface GeoJsonObject {
   /** Polymorphic discriminator, which specifies the different types this object can be */
@@ -484,39 +517,6 @@ export interface GeoJsonFeatureData {
   id?: string;
   /** The type of the feature. The value depends on the data model the current feature is part of. Some data models may have an empty value. */
   featureType?: string;
-}
-
-/** An object with a FeatureCollection and a list of distances.  All the feature's properties should contain `geometryId`, which is used for identifying the geometry and is case-sensitive. */
-export interface BufferRequestBody {
-  /** A valid `GeoJSON FeatureCollection` object type. Please refer to [RFC 7946](https://tools.ietf.org/html/rfc7946#section-3.3) for details. */
-  geometries?: GeoJsonFeatureCollectionUnion;
-  /** List of the distances to compute the buffer for, one-to-one per Feature in the collection, or one for all Features in the collection. */
-  distances?: number[];
-}
-
-/** This object is returned from a successful Spatial Buffer call. */
-export interface BufferResponse {
-  /**
-   * Summary of the call.
-   * NOTE: This property will not be serialized. It can only be populated by the server.
-   */
-  readonly summary?: BufferResponseSummary;
-  /** The FeatureCollection of buffers for the input. */
-  result?: GeoJsonFeatureCollectionUnion;
-}
-
-/** Summary of the call. */
-export interface BufferResponseSummary {
-  /**
-   * The udid for the user data if one exists
-   * NOTE: This property will not be serialized. It can only be populated by the server.
-   */
-  readonly udid?: string;
-  /**
-   * The information about what happened during the call.
-   * NOTE: This property will not be serialized. It can only be populated by the server.
-   */
-  readonly information?: string;
 }
 
 /** This object is returned from a successful Spatial Closest Point call */

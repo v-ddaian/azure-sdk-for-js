@@ -15,7 +15,6 @@ import {
   ResponseFormat,
   SpatialGetGeofenceOptionalParams,
   SpatialGetGeofenceResponse,
-  GeoJsonFeatureCollectionUnion,
   SpatialPostGeofenceOptionalParams,
   SpatialPostGeofenceResponse,
   BufferRequestBody,
@@ -151,7 +150,7 @@ export class SpatialImpl implements Spatial {
     deviceId: string,
     latitude: number,
     longitude: number,
-    searchGeofenceRequestBody: GeoJsonFeatureCollectionUnion,
+    searchGeofenceRequestBody: Record<string, unknown>,
     options?: SpatialPostGeofenceOptionalParams
   ): Promise<SpatialPostGeofenceResponse> {
     return this.client.sendOperationRequest(
@@ -264,7 +263,7 @@ export class SpatialImpl implements Spatial {
     format: ResponseFormat,
     latitude: number,
     longitude: number,
-    closestPointRequestBody: GeoJsonFeatureCollectionUnion,
+    closestPointRequestBody: Record<string, unknown>,
     options?: SpatialPostClosestPointOptionalParams
   ): Promise<SpatialPostClosestPointResponse> {
     return this.client.sendOperationRequest(
@@ -335,7 +334,7 @@ export class SpatialImpl implements Spatial {
     format: ResponseFormat,
     latitude: number,
     longitude: number,
-    pointInPolygonRequestBody: GeoJsonFeatureCollectionUnion,
+    pointInPolygonRequestBody: Record<string, unknown>,
     options?: SpatialPostPointInPolygonOptionalParams
   ): Promise<SpatialPostPointInPolygonResponse> {
     return this.client.sendOperationRequest(

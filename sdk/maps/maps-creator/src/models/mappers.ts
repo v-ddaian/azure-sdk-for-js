@@ -716,8 +716,7 @@ export const FeatureStateObject: coreClient.CompositeMapper = {
       value: {
         serializedName: "value",
         type: {
-          name: "Dictionary",
-          value: { type: { name: "any" } }
+          name: "String"
         }
       },
       eventTimestamp: {
@@ -841,6 +840,79 @@ export const GeofenceGeometry: coreClient.CompositeMapper = {
   }
 };
 
+export const BufferRequestBody: coreClient.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "BufferRequestBody",
+    modelProperties: {
+      geometries: {
+        serializedName: "geometries",
+        type: {
+          name: "Dictionary",
+          value: { type: { name: "any" } }
+        }
+      },
+      distances: {
+        serializedName: "distances",
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "Number"
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+export const BufferResponse: coreClient.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "BufferResponse",
+    modelProperties: {
+      summary: {
+        serializedName: "summary",
+        type: {
+          name: "Composite",
+          className: "BufferResponseSummary"
+        }
+      },
+      result: {
+        serializedName: "result",
+        type: {
+          name: "Composite",
+          className: "GeoJsonFeatureCollection"
+        }
+      }
+    }
+  }
+};
+
+export const BufferResponseSummary: coreClient.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "BufferResponseSummary",
+    modelProperties: {
+      udid: {
+        serializedName: "udid",
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      information: {
+        serializedName: "information",
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
 export const GeoJsonObject: coreClient.CompositeMapper = {
   type: {
     name: "Composite",
@@ -911,79 +983,6 @@ export const GeoJsonFeatureData: coreClient.CompositeMapper = {
       },
       featureType: {
         serializedName: "featureType",
-        type: {
-          name: "String"
-        }
-      }
-    }
-  }
-};
-
-export const BufferRequestBody: coreClient.CompositeMapper = {
-  type: {
-    name: "Composite",
-    className: "BufferRequestBody",
-    modelProperties: {
-      geometries: {
-        serializedName: "geometries",
-        type: {
-          name: "Composite",
-          className: "GeoJsonFeatureCollection"
-        }
-      },
-      distances: {
-        serializedName: "distances",
-        type: {
-          name: "Sequence",
-          element: {
-            type: {
-              name: "Number"
-            }
-          }
-        }
-      }
-    }
-  }
-};
-
-export const BufferResponse: coreClient.CompositeMapper = {
-  type: {
-    name: "Composite",
-    className: "BufferResponse",
-    modelProperties: {
-      summary: {
-        serializedName: "summary",
-        type: {
-          name: "Composite",
-          className: "BufferResponseSummary"
-        }
-      },
-      result: {
-        serializedName: "result",
-        type: {
-          name: "Composite",
-          className: "GeoJsonFeatureCollection"
-        }
-      }
-    }
-  }
-};
-
-export const BufferResponseSummary: coreClient.CompositeMapper = {
-  type: {
-    name: "Composite",
-    className: "BufferResponseSummary",
-    modelProperties: {
-      udid: {
-        serializedName: "udid",
-        readOnly: true,
-        type: {
-          name: "String"
-        }
-      },
-      information: {
-        serializedName: "information",
-        readOnly: true,
         type: {
           name: "String"
         }

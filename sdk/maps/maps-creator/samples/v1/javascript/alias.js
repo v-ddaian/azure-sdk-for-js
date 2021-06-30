@@ -5,12 +5,9 @@
  * @summary Demonstrates Alias API usage. Simple CRUD operations are performed.
  */
 
-import { getDefaultAzureCredential } from "@azure/identity";
-import * as coreAuth from "@azure/core-auth";
-import * as coreClient from "@azure/core-client";
-import { CreatorClient } from "@azure/maps-creator";
-import * as dotenv from "dotenv";
-dotenv.config();
+const { DefaultAzureCredential } = require("@azure/identity");
+const { CreatorClient } = require("@azure/maps-creator");
+require("dotenv").config();
 
 /**
  * Azure Maps supports two ways to authenticate requests:
@@ -27,11 +24,8 @@ dotenv.config();
 /**
  * Empty token class definition. To be used with AzureKey credentials.
  */
-class EmptyTokenCredential implements coreAuth.TokenCredential {
-  async getToken(
-    _scopes: string | string[],
-    _options?: coreAuth.GetTokenOptions
-  ): Promise<coreAuth.AccessToken | null> {
+class EmptyTokenCredential {
+  async getToken(_scopes, _options) {
     return {
       token: "token",
       expiresOnTimestamp: Date.now() + 60 * 60 * 1000
@@ -41,8 +35,8 @@ class EmptyTokenCredential implements coreAuth.TokenCredential {
 
 
 async function main() {
-  let credential: coreAuth.TokenCredential;
-  let operationOptions: coreClient.OperationOptions = {};
+  let credential;
+  let operationOptions = {};
 
   if (process.env.MAPS_SUBSCRIPTION_KEY) {
     // Use subscription key authentication
@@ -51,7 +45,7 @@ async function main() {
   }
   else {
     // Use Azure AD authentication
-    credential = getDefaultAzureCredential();
+    credential = new DefaultAzureCredential();
   }
 
   const alias = new CreatorClient(credential).alias;
@@ -61,18 +55,18 @@ async function main() {
   console.log(aliasCreateResponse);
   const aliasId = aliasCreateResponse.aliasId;
 
-  // TO USE need to have some data uploaded already - please use env CREATOR_UPLOADED_DATA_ID
-  const creatorDataId = process.env.CREATOR_UPLOADED_DATA_ID;
-  if ((typeof creatorDataId === "string") && (creatorDataId.length == 36)) {
-    console.log(" --- Assign the aliasId to some Creator's dataId:");
-    console.log(await alias.assign(aliasId!, creatorDataId!, operationOptions));
+  // TO USE need to have some data uploaded already - please use env CREATOR_DWG_ZIP_UDID or CREATOR_GEOJSON_UDID
+  const udid = process.env.CREATOR_DWG_ZIP_UDID;
+  if ((typeof udid === "string") && (udid.length == 36)) {
+    console.log(" --- Assign the aliasId to some Creator's udid:");
+    console.log(await alias.assign(aliasId, udid, operationOptions));
   }
 
   console.log(" --- Get details about the created Alias:");
-  console.log(await alias.getDetails(aliasId!, operationOptions));
+  console.log(await alias.getDetails(aliasId, operationOptions));
 
   console.log(" --- Delete the created Alias:");
-  await alias.delete(aliasId!, operationOptions);
+  await alias.delete(aliasId, operationOptions);
   console.log("Done (no response body)");
 
   console.log(" --- List all the created Aliases:");

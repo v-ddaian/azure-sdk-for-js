@@ -1,8 +1,8 @@
 {
-  "name": "azure-maps-service-samples-ts",
+  "name": "azure-maps-creator-samples-ts",
   "private": true,
   "version": "1.0.0",
-  "description": "Azure Maps Service client library samples for TypeScript",
+  "description": "Azure Maps Creator client library samples for TypeScript",
   "engine": {
     "node": ">=12.0.0"
   },
@@ -13,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Azure/azure-sdk-for-js.git",
-    "directory": "sdk/maps/maps-service"
+    "directory": "sdk/maps/maps-creator"
   },
   "keywords": [
     "Azure",
@@ -24,12 +24,10 @@
   "bugs": {
     "url": "https://github.com/Azure/azure-sdk-for-js/issues"
   },
-  "homepage": "https://github.com/Azure/azure-sdk-for-js/tree/master/sdk/maps/maps-service",
+  "homepage": "https://github.com/Azure/azure-sdk-for-js/tree/master/sdk/maps/maps-creator",
   "dependencies": {
-    "@azure/maps-creator": "file:..",
-    "@azure/core-http": "file:../../../core/core-http",
-    "dotenv": "latest",
-    "@azure/identity": "2.0.0-beta.3"
+    "@azure/maps-creator": "next",
+    "dotenv": "latest"
   },
   "devDependencies": {
     "typescript": "~4.2.0",
