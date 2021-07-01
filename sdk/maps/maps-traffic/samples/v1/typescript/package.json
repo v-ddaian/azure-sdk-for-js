@@ -27,7 +27,8 @@
   "homepage": "https://github.com/Azure/azure-sdk-for-js/tree/master/sdk/maps/maps-traffic",
   "dependencies": {
     "@azure/maps-traffic": "next",
-    "dotenv": "latest"
+    "dotenv": "latest",
+    "@azure/identity": "^1.1.0"
   },
   "devDependencies": {
     "typescript": "~4.2.0",

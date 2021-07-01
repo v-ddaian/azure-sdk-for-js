@@ -2,13 +2,14 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple queries are performed.
+ * @summary Demonstrates Traffic API usage. Simple queries are performed.
  */
 
+import fs from "fs";
 import { getDefaultAzureCredential } from "@azure/identity";
 import * as coreAuth from "@azure/core-auth";
 import * as coreClient from "@azure/core-client";
-import { ElevationClient } from "@azure/maps-elevation";
+import { TrafficClient } from "@azure/maps-traffic";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -54,22 +55,28 @@ async function main() {
     credential = getDefaultAzureCredential();
   }
 
-  const elevation = new ElevationClient(credential).elevation;
+  const traffic = new TrafficClient(credential).traffic;
 
-  console.log(" --- Get Data For Bounding Box:");
-  console.log(await elevation.getDataForBoundingBox("json", ["-121.66853362143818", "46.84646479863713", "-121.65853362143818", "46.85646479863713"], 3, 3, operationOptions));
+  console.log(" --- Get traffic flow segment:");
+  console.log(await traffic.getTrafficFlowSegment("json", "absolute", 10, "52.41072,4.84239", operationOptions));
 
-  console.log(" --- Get Data For Points:");
-  console.log(await elevation.getDataForPoints("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get traffic flow tile:");
+  let result = await traffic.getTrafficFlowTile("png", "absolute", 12, 2044, 1360, operationOptions);
+  // use result.blobBody for Browser, readableStreamBody for Node.js:
+  result.readableStreamBody?.pipe(fs.createWriteStream("tmp/traffic_flow_tile.png"));
 
-  console.log(" --- Get Data For Polyline:");
-  console.log(await elevation.getDataForPolyline("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get traffic incident detail:");
+  console.log(await traffic.getTrafficIncidentDetail("json", "s3", "6841263.950712,511972.674418,6886056.049288,582676.925582", 11, "1335294634919", operationOptions));
 
-  console.log(" --- Post Data For Points:");
-  console.log(await elevation.postDataForPoints("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  console.log(" --- Get traffic incident tile:");
+  result = await traffic.getTrafficIncidentTile("png", "night", 10, 175, 408, operationOptions);
+  // use result.blobBody for Browser, readableStreamBody for Node.js:
+  result.readableStreamBody?.pipe(fs.createWriteStream("tmp/traffic_incident_tile.png"));
 
-  console.log(" --- Post Data For Polyline:");
-  console.log(await elevation.postDataForPolyline("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  console.log(" --- Get traffic incident viewport:");
+  const viewportBBox = "-939584.4813015489,-23954526.723651607,14675583.153020501,25043442.895825107";
+  const overviewBBox = "-939584.4813018347,-23954526.723651607,14675583.153020501,25043442.8958229083";
+  console.log(await traffic.getTrafficIncidentViewport("json", viewportBBox, 2, overviewBBox, 2, operationOptions));
 
 }
 

@@ -2,9 +2,10 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple CRUD operations are performed.
+ * @summary Demonstrates Render API usage. Simple CRUD operations are performed.
  */
 
+const fs = require("fs");
 const { DefaultAzureCredential } = require("@azure/identity");
 const { RenderClient } = require("@azure/maps-render");
 require("dotenv").config();

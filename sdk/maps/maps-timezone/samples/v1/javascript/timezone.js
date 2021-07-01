@@ -2,11 +2,11 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple CRUD operations are performed.
+ * @summary Demonstrates Timezone API usage. Simple CRUD operations are performed.
  */
 
 const { DefaultAzureCredential } = require("@azure/identity");
-const { ElevationClient } = require("@azure/maps-elevation");
+const { TimezoneClient } = require("@azure/maps-timezone");
 require("dotenv").config();
 
 /**
@@ -48,22 +48,25 @@ async function main() {
     credential = new DefaultAzureCredential();
   }
 
-  const elevation = new ElevationClient(credential).elevation;
+  const timezone = new TimezoneClient(credential).timezone;
 
-  console.log(" --- Get Data For Bounding Box:");
-  console.log(await elevation.getDataForBoundingBox("json", ["-121.66853362143818", "46.84646479863713", "-121.65853362143818", "46.85646479863713"], 3, 3, operationOptions));
+  console.log(" --- Get timezone by coordinates:");
+  console.log(await timezone.getTimezoneByCoordinates("json", "47.0,-122", { "options": "all" }, operationOptions));
 
-  console.log(" --- Get Data For Points:");
-  console.log(await elevation.getDataForPoints("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get enum IANA timezones:");
+  console.log(await timezone.getTimezoneEnumIana("json", operationOptions));
 
-  console.log(" --- Get Data For Polyline:");
-  console.log(await elevation.getDataForPolyline("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get IANA version:");
+  console.log(await timezone.getTimezoneIanaVersion("json", operationOptions));
 
-  console.log(" --- Post Data For Points:");
-  console.log(await elevation.postDataForPoints("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  console.log(" --- Get timezone by IANA ID:");
+  console.log(await timezone.getTimezoneByID("json", "Asia/Bahrain", { "options": "all" }, operationOptions));
 
-  console.log(" --- Post Data For Polyline:");
-  console.log(await elevation.postDataForPolyline("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  console.log(" --- Get enum Windows timezones:");
+  console.log(await timezone.getTimezoneEnumWindows("json", operationOptions));
+
+  console.log(" --- Get Windows timezone to IANA:");
+  console.log(await timezone.getTimezoneWindowsToIana("json", "Eastern Standard Time", operationOptions));
 
 }
 

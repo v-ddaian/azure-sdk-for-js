@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple queries are performed.
+ * @summary Demonstrates Geolocation API usage. Simple queries are performed.
  */
 
 import { getDefaultAzureCredential } from "@azure/identity";

@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple queries are performed.
+ * @summary Demonstrates Render API usage. Simple queries are performed.
  */
 
 import fs from "fs";

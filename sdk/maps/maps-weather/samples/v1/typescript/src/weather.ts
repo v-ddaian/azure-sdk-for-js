@@ -2,13 +2,13 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple queries are performed.
+ * @summary Demonstrates Weather API usage. Simple queries are performed.
  */
 
 import { getDefaultAzureCredential } from "@azure/identity";
 import * as coreAuth from "@azure/core-auth";
 import * as coreClient from "@azure/core-client";
-import { ElevationClient } from "@azure/maps-elevation";
+import { WeatherClient } from "@azure/maps-weather";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -54,22 +54,31 @@ async function main() {
     credential = getDefaultAzureCredential();
   }
 
-  const elevation = new ElevationClient(credential).elevation;
+  const weather = new WeatherClient(credential).weather;
 
-  console.log(" --- Get Data For Bounding Box:");
-  console.log(await elevation.getDataForBoundingBox("json", ["-121.66853362143818", "46.84646479863713", "-121.65853362143818", "46.85646479863713"], 3, 3, operationOptions));
+  console.log(" --- Get current weather conditions:");
+  console.log(await weather.getCurrentConditions("json", "47.641268,-122.125679", operationOptions));
 
-  console.log(" --- Get Data For Points:");
-  console.log(await elevation.getDataForPoints("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get daily forecast:");
+  console.log(await weather.getDailyForecast("json", "62.6490341,30.0734812", { "duration": 5 }, operationOptions));
 
-  console.log(" --- Get Data For Polyline:");
-  console.log(await elevation.getDataForPolyline("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get daily indices:");
+  console.log(await weather.getDailyIndices("json", "43.84745,-79.37849", { "indexGroupId": 11 }, operationOptions));
 
-  console.log(" --- Post Data For Points:");
-  console.log(await elevation.postDataForPoints("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  console.log(" --- Get hourly forecast:");
+  console.log(await weather.getHourlyForecast("json", "47.632346,-122.138874", { "duration": 12 }, operationOptions));
 
-  console.log(" --- Post Data For Polyline:");
-  console.log(await elevation.postDataForPolyline("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  console.log(" --- Get minute forecast:");
+  console.log(await weather.getMinuteForecast("json", "47.632346,-122.138874", { "interval": 15 }, operationOptions));
+
+  console.log(" --- Get quarter day forecast:");
+  console.log(await weather.getQuarterDayForecast("json", "47.632346,-122.138874", { "duration": 1 }, operationOptions));
+
+  console.log(" --- Get severe weather alerts:");
+  console.log(await weather.getSevereWeatherAlerts("json", "48.057,-81.091", operationOptions));
+
+  console.log(" --- Get weather along route:");
+  console.log(await weather.getWeatherAlongRoute("json", "38.907,-77.037,0:38.907,-77.009,10:38.926,-76.928,20:39.033,-76.852,30:39.168,-76.732,40:39.269,-76.634,50:39.287,-76.612,60", operationOptions));
 
 }
 

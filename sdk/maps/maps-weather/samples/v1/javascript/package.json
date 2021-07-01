@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Azure/azure-sdk-for-js/tree/master/sdk/maps/maps-weather",
   "dependencies": {
     "@azure/maps-weather": "next",
-    "dotenv": "latest"
+    "dotenv": "latest",
+    "@azure/identity": "^1.1.0"
   }
 }

@@ -2,13 +2,14 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple queries are performed.
+ * @summary Demonstrates Route API usage. Simple queries are performed.
  */
 
+import fs from "fs";
 import { getDefaultAzureCredential } from "@azure/identity";
 import * as coreAuth from "@azure/core-auth";
 import * as coreClient from "@azure/core-client";
-import { ElevationClient } from "@azure/maps-elevation";
+import { RouteClient } from "@azure/maps-route";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -54,22 +55,29 @@ async function main() {
     credential = getDefaultAzureCredential();
   }
 
-  const elevation = new ElevationClient(credential).elevation;
+  const route = new RouteClient(credential).route;
 
-  console.log(" --- Get Data For Bounding Box:");
-  console.log(await elevation.getDataForBoundingBox("json", ["-121.66853362143818", "46.84646479863713", "-121.65853362143818", "46.85646479863713"], 3, 3, operationOptions));
+  const filePathForPostRouteDirections = "../../resources/route_directions_request_body.json";
+  const filePathForPostRouteDirectionsBatch = "../../resources/route_directions_batch_request_body.json";
+  const filePathForPostRouteMatrix = "../../resources/route_matrix_request_body.json";
 
-  console.log(" --- Get Data For Points:");
-  console.log(await elevation.getDataForPoints("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get route directions:");
+  console.log(await route.getRouteDirections("json", "52.50931,13.42936:52.50274,13.43872", operationOptions));
 
-  console.log(" --- Get Data For Polyline:");
-  console.log(await elevation.getDataForPolyline("json", ["-121.66853362143818,46.84646479863713", "-121.65853362143818,46.85646479863713"], operationOptions));
+  console.log(" --- Get route range:");
+  console.log(await route.getRouteRange("json", "50.97452,5.86605", { "timeBudgetInSec": 6000 }, operationOptions));
 
-  console.log(" --- Post Data For Points:");
-  console.log(await elevation.postDataForPoints("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  const postRouteDirectionsPayload = JSON.parse(fs.readFileSync(filePathForPostRouteDirections, "utf8"));
+  console.log(" --- Post route directions:");
+  console.log(await route.postRouteDirections("json", "52.50931,13.42936:52.50274,13.43872", postRouteDirectionsPayload, operationOptions));
 
-  console.log(" --- Post Data For Polyline:");
-  console.log(await elevation.postDataForPolyline("json", [{ lat: 46.84646479863713, lon: -121.66853362143818 }, { lat: 46.85646479863713, lon: -121.65853362143818 }], operationOptions));
+  console.log(" --- Post route directions batch:");
+  const postRouteDirectionsBatchPayload = JSON.parse(fs.readFileSync(filePathForPostRouteDirectionsBatch, "utf8"));
+  console.log(await route.beginPostRouteDirectionsBatchAndWait("json", postRouteDirectionsBatchPayload, operationOptions));
+
+  console.log(" --- Post route matrix:");
+  const postRouteMatrixPayload = JSON.parse(fs.readFileSync(filePathForPostRouteMatrix, "utf8"));
+  console.log(await route.beginPostRouteMatrixAndWait("json", postRouteMatrixPayload, operationOptions));
 
 }
 

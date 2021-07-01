@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 /**
- * @summary Demonstrates Elevation API usage. Simple CRUD operations are performed.
+ * @summary Demonstrates Geolocation API usage. Simple CRUD operations are performed.
  */
 
 const { DefaultAzureCredential } = require("@azure/identity");
