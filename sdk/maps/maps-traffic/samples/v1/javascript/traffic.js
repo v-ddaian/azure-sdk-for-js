@@ -54,6 +54,9 @@ async function main() {
   console.log(" --- Get traffic flow segment:");
   console.log(await traffic.getTrafficFlowSegment("json", "absolute", 10, "52.41072,4.84239", operationOptions));
 
+  if (!fs.existsSync("tmp"))
+    fs.mkdirSync("tmp");
+
   console.log(" --- Get traffic flow tile:");
   let result = await traffic.getTrafficFlowTile("png", "absolute", 12, 2044, 1360, operationOptions);
   // use result.blobBody for Browser, readableStreamBody for Node.js:

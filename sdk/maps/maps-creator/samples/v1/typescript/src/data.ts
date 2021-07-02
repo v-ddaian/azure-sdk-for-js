@@ -146,6 +146,7 @@ async function main() {
 
   if (!fs.existsSync("tmp"))
     fs.mkdirSync("tmp");
+
   console.log(" --- Download the uploaded Data:");
   let zipResult = await data.downloadPreview(zipUdid!, operationOptions);
   console.log("Done (content type: " + zipResult.contentType + ")");

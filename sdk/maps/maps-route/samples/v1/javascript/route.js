@@ -59,7 +59,8 @@ async function main() {
   console.log(await route.getRouteDirections("json", "52.50931,13.42936:52.50274,13.43872", operationOptions));
 
   console.log(" --- Get route range:");
-  console.log(await route.getRouteRange("json", "50.97452,5.86605", { "timeBudgetInSec": 6000 }, operationOptions));
+  const routeRangeOptions = { "timeBudgetInSec": 6000 };
+  console.log(await route.getRouteRange("json", "50.97452,5.86605", { ...routeRangeOptions, ...operationOptions }));
 
   const postRouteDirectionsPayload = JSON.parse(fs.readFileSync(filePathForPostRouteDirections, "utf8"));
   console.log(" --- Post route directions:");

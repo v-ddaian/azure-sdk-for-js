@@ -67,14 +67,15 @@ async function main() {
   console.log(await search.getSearchAddressReverseCrossStreet("json", "37.337,-121.89", operationOptions));
 
   console.log(" --- Get search address structured:");
-  console.log(await search.getSearchAddressStructured("json", {
+  const searchAddressStructuredOptions = {
     "countryCode": "US",
     "streetNumber": "15127",
     "streetName": "NE 24th Street",
     "municipality": "Redmond",
     "countrySubdivision": "WA",
     "postalCode": "98052"
-  }, operationOptions));
+  };
+  console.log(await search.getSearchAddressStructured("json", { ...searchAddressStructuredOptions, ...operationOptions }));
 
   console.log(" --- Get search fuzzy:");
   const fuzzyResult = await search.getSearchFuzzy("json", "Seattle", operationOptions);
@@ -82,26 +83,29 @@ async function main() {
 
   // let's save geometry IDs from the fuzzy search for the getSearchPolygon example
   let geometries = [];
-  fuzzyResult.results?.forEach((res) => geometries.push(res.dataSources.geometry.id));
+  fuzzyResult.results.forEach((res) => geometries.push(res.dataSources.geometry.id));
 
   console.log(" --- Get search nearby:");
-  console.log(await search.getSearchNearby("json", 40.706270, -74.011454, { "radius": 8046 }, operationOptions));
+  const searchNearbyOptions = { "radius": 8046 };
+  console.log(await search.getSearchNearby("json", 40.706270, -74.011454, { ...searchNearbyOptions, ...operationOptions }));
 
   console.log(" --- Get search POI:");
-  console.log(await search.getSearchPOI("json", "juice bars", {
+  const searchPOIOptions = {
     "limit": 5,
     "lat": 47.606038,
     "lon": -122.333345,
     "radius": 8046
-  }, operationOptions));
+  };
+  console.log(await search.getSearchPOI("json", "juice bars", { ...searchPOIOptions, ...operationOptions }));
 
   console.log(" --- Get search POI category:");
-  console.log(await search.getSearchPOICategory("json", "atm", {
+  const searchPOICategoryOptions = {
     "limit": 5,
     "lat": 47.606038,
     "lon": -122.333345,
     "radius": 8046
-  }, operationOptions));
+  };
+  console.log(await search.getSearchPOICategory("json", "atm", operationOptions));
 
   console.log(" --- Get search POI category tree:");
   console.log(await search.getSearchPOICategoryTreePreview("json", operationOptions));
@@ -122,12 +126,14 @@ async function main() {
   console.log(await search.beginPostSearchFuzzyBatchAndWait("json", postSearchFuzzyBatchPayload, operationOptions));
 
   console.log(" --- Post search along route:");
+  const searchAlongRouteOptions = { "limit": 2 };
   const postSearchAlongRoutePayload = JSON.parse(fs.readFileSync(filePathForPostSearchAlongRoute, "utf8"));
-  console.log(await search.postSearchAlongRoute("json", "burger", 1000, postSearchAlongRoutePayload, { "limit": 2 }, operationOptions));
+  console.log(await search.postSearchAlongRoute("json", "burger", 1000, postSearchAlongRoutePayload, { ...searchAlongRouteOptions, ...operationOptions }));
 
   console.log(" --- Post search inside geometry:");
+  const searchInsideGeometryOptions = { "limit": 2 };
   const postSearchInsideGeometryPayload = JSON.parse(fs.readFileSync(filePathForPostSearchInsideGeometry, "utf8"));
-  console.log(await search.postSearchInsideGeometry("json", "burger", postSearchInsideGeometryPayload, { "limit": 2 }, operationOptions));
+  console.log(await search.postSearchInsideGeometry("json", "burger", postSearchInsideGeometryPayload, { ...searchInsideGeometryOptions, ...operationOptions }));
 
 }
 

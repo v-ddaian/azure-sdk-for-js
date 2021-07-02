@@ -84,21 +84,28 @@ async function main() {
     console.log(" --- Get map state tile:");
     result = await render.getMapStateTilePreview(6, 10, 22, statesetId, operationOptions);
     // use result.blobBody for Browser, readableStreamBody for Node.js:
-    result.readableStreamBody?.pipe(fs.createWriteStream("tmp/state_tile.png"));
+    result.readableStreamBody?.pipe(fs.createWriteStream("tmp/state_tile.pbf"));
   }
 
   console.log(" --- Get map static image:");
-  result = await render.getMapStaticImage("png", { "layer": "basic", "style": "dark", "zoom": 2, "bbox": "1.355233,42.982261,24.980233,56.526017" });
+  const mapStaticImageOptions = {
+    "layer": "basic",
+    "style": "dark",
+    "zoom": 2,
+    "bbox": "1.355233,42.982261,24.980233,56.526017"
+  };
+  result = await render.getMapStaticImage("png", { ...mapStaticImageOptions, ...operationOptions });
   // use result.blobBody for Browser, readableStreamBody for Node.js:
   result.readableStreamBody?.pipe(fs.createWriteStream("tmp/static_image.png"));
 
   console.log(" --- Get map tile:");
-  result = await render.getMapTile("png", "basic", "main", 6, 10, 22, { "tileSize": "512" });
+  const mapTileOptions = { "tileSize": "512" };
+  result = await render.getMapTile("png", "basic", "main", 6, 10, 22, { ...mapTileOptions, ...operationOptions });
   // use result.blobBody for Browser, readableStreamBody for Node.js:
   result.readableStreamBody?.pipe(fs.createWriteStream("tmp/tile.png"));
 
   console.log(" --- Get map tile v2:");
-  result = await renderV2.getMapTilePreview("microsoft.base", 6, 10, 22, { "tileSize": "512" });
+  result = await renderV2.getMapTilePreview("microsoft.base", 6, 10, 22, { ...mapTileOptions, ...operationOptions });
   // use result.blobBody for Browser, readableStreamBody for Node.js:
   result.readableStreamBody?.pipe(fs.createWriteStream("tmp/tile_v2.vector.pbf"));
 

@@ -57,7 +57,8 @@ async function main() {
   const timezone = new TimezoneClient(credential).timezone;
 
   console.log(" --- Get timezone by coordinates:");
-  console.log(await timezone.getTimezoneByCoordinates("json", "47.0,-122", { "options": "all" }, operationOptions));
+  const timezoneByCoordinatesOptions = { "options": "all" };
+  console.log(await timezone.getTimezoneByCoordinates("json", "47.0,-122", { ...timezoneByCoordinatesOptions, ...operationOptions }));
 
   console.log(" --- Get enum IANA timezones:");
   console.log(await timezone.getTimezoneEnumIana("json", operationOptions));
@@ -66,7 +67,8 @@ async function main() {
   console.log(await timezone.getTimezoneIanaVersion("json", operationOptions));
 
   console.log(" --- Get timezone by IANA ID:");
-  console.log(await timezone.getTimezoneByID("json", "Asia/Bahrain", { "options": "all" }, operationOptions));
+  const timezoneByIdOptions = { "options": "all" };
+  console.log(await timezone.getTimezoneByID("json", "Asia/Bahrain", { ...timezoneByIdOptions, ...operationOptions }));
 
   console.log(" --- Get enum Windows timezones:");
   console.log(await timezone.getTimezoneEnumWindows("json", operationOptions));

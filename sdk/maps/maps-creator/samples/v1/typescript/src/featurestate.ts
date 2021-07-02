@@ -57,7 +57,7 @@ async function main() {
 
   const featureState = new CreatorClient(credential).featureState;
 
-  const filePathForCreate = "../../s/featurestate_sample_create.json";
+  const filePathForCreate = "../../resources/featurestate_sample_create.json";
   const filePathForUpdate = "../../resources/featurestate_sample_put.json";
   const filePathForUpdateStates = "../../resources/featurestate_sample_update_states.json";
 
@@ -95,7 +95,7 @@ async function main() {
   console.log(await featureState.getStates(statesetId!, featureId, operationOptions));
 
   console.log(" --- Delete state of the Feature State set:");
-  console.log(await featureState.deleteState(statesetId!, featureId, "s2", operationOptions));
+  console.log(await featureState.deleteState(statesetId!, featureId, "s1", operationOptions));
 
   console.log(" --- Get states of the Feature State set:");
   console.log(await featureState.getStates(statesetId!, featureId, operationOptions));

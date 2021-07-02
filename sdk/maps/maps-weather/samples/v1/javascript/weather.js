@@ -54,19 +54,24 @@ async function main() {
   console.log(await weather.getCurrentConditions("json", "47.641268,-122.125679", operationOptions));
 
   console.log(" --- Get daily forecast:");
-  console.log(await weather.getDailyForecast("json", "62.6490341,30.0734812", { "duration": 5 }, operationOptions));
+  const dailyForecastOptions = { "duration": 5 };
+  console.log(await weather.getDailyForecast("json", "62.6490341,30.0734812", { ...dailyForecastOptions, ...operationOptions }));
 
   console.log(" --- Get daily indices:");
-  console.log(await weather.getDailyIndices("json", "43.84745,-79.37849", { "indexGroupId": 11 }, operationOptions));
+  const dailyIndicesOptions = { "indexGroupId": 11 };
+  console.log(await weather.getDailyIndices("json", "43.84745,-79.37849", { ...dailyIndicesOptions, ...operationOptions }));
 
   console.log(" --- Get hourly forecast:");
-  console.log(await weather.getHourlyForecast("json", "47.632346,-122.138874", { "duration": 12 }, operationOptions));
+  const hourlyForecastOptions = { "duration": 12 };
+  console.log(await weather.getHourlyForecast("json", "47.632346,-122.138874", { ...hourlyForecastOptions, ...operationOptions }));
 
   console.log(" --- Get minute forecast:");
-  console.log(await weather.getMinuteForecast("json", "47.632346,-122.138874", { "interval": 15 }, operationOptions));
+  const minuteForecastOptions = { "interval": 15 };
+  console.log(await weather.getMinuteForecast("json", "47.632346,-122.138874", { ...minuteForecastOptions, ...operationOptions }));
 
   console.log(" --- Get quarter day forecast:");
-  console.log(await weather.getQuarterDayForecast("json", "47.632346,-122.138874", { "duration": 1 }, operationOptions));
+  const quarterDayForecastOptions = { "duration": 1 };
+  console.log(await weather.getQuarterDayForecast("json", "47.632346,-122.138874", { ...quarterDayForecastOptions, ...operationOptions }));
 
   console.log(" --- Get severe weather alerts:");
   console.log(await weather.getSevereWeatherAlerts("json", "48.057,-81.091", operationOptions));
